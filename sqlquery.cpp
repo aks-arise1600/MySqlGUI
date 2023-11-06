@@ -45,7 +45,7 @@ SqlQuery::~SqlQuery()
 void SqlQuery::TreeViewList()
 {
     int i=0;
-    qDebug()<<"in tree Database "<<db.databaseName();
+    PRINT(__FUNCTION__)<<"in tree Database "<<db.databaseName();
     ui->label_selecteDB->setText(db.databaseName());
     QSqlQuery query0("use "+db.databaseName());
     query0.next();
@@ -59,7 +59,7 @@ void SqlQuery::TreeViewList()
 
     //    QSqlQuery query11("select count(*) from information_schema.tables where table_schema = database()");
     //    query11.next();
-    //    qDebug()<<query11.value(0).toInt();
+    //    PRINT(__FUNCTION__)<<query11.value(0).toInt();
     QSqlQuery query1("show tables from "+db.databaseName());
     while(query1.next())
     {
@@ -98,7 +98,7 @@ void SqlQuery::on_pushButton_Go_clicked()
         if(test_bool)
         {
             int i=0;len=0;
-            qDebug()<<str_query<<str_query.length();
+            PRINT(__FUNCTION__)<<str_query<<str_query.length();
             int SpaceCount=0;
             while(i<str_query.length()-1)
             {
@@ -114,7 +114,7 @@ void SqlQuery::on_pushButton_Go_clicked()
                 i++;
             }
 
-            //qDebug()<<"list"<<strlist;
+            //PRINT(__FUNCTION__)<<"list"<<strlist;
             i=0;
             if(strlist.at(0)=="select" && strlist.at(1)=="*")
             {
@@ -133,7 +133,7 @@ void SqlQuery::on_pushButton_Go_clicked()
                 while(size>0)
                 {
                     QString str1=strlist.at(col);
-                    //qDebug()<<str1<<str1[str1.size()-1];
+                    //PRINT(__FUNCTION__)<<str1<<str1[str1.size()-1];
                     QString str2;
                     if(str1[str1.size()-1]==',')
                     {
@@ -143,11 +143,11 @@ void SqlQuery::on_pushButton_Go_clicked()
                             str2[j]=str1[j];
                             j++;
                         }
-                        //qDebug()<<"coma-word "<<str2;
+                        //PRINT(__FUNCTION__)<<"coma-word "<<str2;
                     }
                     else
                         str2=strlist.at(col);
-                    //qDebug()<<"str2 "<<str2;
+                    //PRINT(__FUNCTION__)<<"str2 "<<str2;
                     Item = new QStandardItem (str2);
                     Model->setHorizontalHeaderItem(i,Item);
                     i++;
@@ -186,7 +186,7 @@ void SqlQuery::on_pushButton_Go_clicked()
             else
             {
                 QString str=strlist.at(0);
-                qDebug()<<"keyword "<<str.toLower();
+                PRINT(__FUNCTION__)<<"keyword "<<str.toLower();
                 if(str.toLower()=="update"||str.toLower()=="drop"||str.toLower()=="create"||str.toLower()=="delete"||str.toLower()=="insert")
                 {
                     QSqlQuery query2;
@@ -194,7 +194,7 @@ void SqlQuery::on_pushButton_Go_clicked()
                     if(!ex)
                     {
                         ui->label_error->setText(query2.lastError().text().split(";").at(0));
-                        qDebug()<<query2.lastError().text().split(";").at(0);
+                        PRINT(__FUNCTION__)<<query2.lastError().text().split(";").at(0);
                     }
                     else
                     {
@@ -238,7 +238,7 @@ void SqlQuery::on_pushButton_Go_clicked()
             ui->label_error->setText(Test_query.lastError().text());
     }
     else
-        qDebug()<<"Query not found !";
+        PRINT(__FUNCTION__)<<"Query not found !";
 
 }
 
@@ -246,7 +246,7 @@ void SqlQuery::On_Click_treeview(QModelIndex M_index)
 {
     QVariant data = ui->treeView->model()->data(M_index);
     QString text = data.toString();
-    //qDebug()<< "Model Index "/*<<M_index */<<text;
+    //PRINT(__FUNCTION__)<< "Model Index "/*<<M_index */<<text;
     if(text!=db.databaseName())
     {
         ui->lineEdit_query->setText("select * from "+text);
@@ -302,7 +302,7 @@ void SqlQuery::SelectAll(QString str)
         i++;
     }
     ui->tableView_QueryData->setModel(Model);
-    //qDebug()<<ui->treeView->size();
+    //PRINT(__FUNCTION__)<<ui->treeView->size();
 }
 
 void SqlQuery::on_pushButton_changeDB_clicked()
@@ -316,14 +316,14 @@ void SqlQuery::on_pushButton_changeDB_clicked()
 
 void SqlQuery::QueryLineEdit()
 {
-    //qDebug()<<"GO ";
+    //PRINT(__FUNCTION__)<<"GO ";
     ui->pushButton_Go->setDefault(true);
     ui->pushButton_Exit->setDefault(false);
 }
 
 void SqlQuery::on_pushButton_Upload_clicked()
 {
-    //qDebug()<<db.databaseName()<<db.userName()<<db.password();
+    //PRINT(__FUNCTION__)<<db.databaseName()<<db.userName()<<db.password();
     DialogUploadSQL *Upload_sql = new DialogUploadSQL;
     connect(Upload_sql,SIGNAL(refresh()),this,SLOT(TreeViewList()));
     Upload_sql->show();
@@ -331,11 +331,11 @@ void SqlQuery::on_pushButton_Upload_clicked()
 
 void SqlQuery::onCustomContextMenu(const QPoint &point)
 {
-    qDebug()<<"right click";
+    PRINT(__FUNCTION__)<<"right click";
     Mdl_Index = ui->treeView->indexAt(point);
     Table_Name.clear();
     Table_Name= ui->treeView->model()->data(Mdl_Index).toString();
-    qDebug()<<Mdl_Index<<Table_Name;
+    PRINT(__FUNCTION__)<<Mdl_Index<<Table_Name;
 
     QMenu *menu=new QMenu(this);
     if(db.databaseName()==Table_Name)
@@ -373,7 +373,7 @@ void SqlQuery::onCustomContextMenu(const QPoint &point)
 void SqlQuery::Insert_table_values()
 {
     this->setDisabled(true);
-    qDebug()<<"Insert_table_values()->Table_Name "<<Table_Name<<Mdl_Index;
+    PRINT(__FUNCTION__)<<"Insert_table_values()->Table_Name "<<Table_Name<<Mdl_Index;
     InsertValue *ivalue=new InsertValue;
 
 //    foreach( QWidget* p_widget, qApp->topLevelWidgets() )
@@ -394,7 +394,7 @@ void SqlQuery::Insert_table_values()
 
 void SqlQuery::Struct_table()
 {
-    qDebug()<<"Struct_table()->Table_Name "<<Table_Name;
+    PRINT(__FUNCTION__)<<"Struct_table()->Table_Name "<<Table_Name;
     int i=0;
     Model =new QStandardItemModel;
     Model->setHorizontalHeaderItem(0,new QStandardItem("Field"));
@@ -432,13 +432,13 @@ void SqlQuery::Struct_table()
 
 void SqlQuery::Browse_table()
 {
-    qDebug()<<"Browse_table()->Table_Name "<<Table_Name;
+    PRINT(__FUNCTION__)<<"Browse_table()->Table_Name "<<Table_Name;
     On_Click_treeview(Mdl_Index);
 }
 
 void SqlQuery::Drop_table()
 {
-     qDebug()<<"Drop_table()->Table_Name "<<Table_Name;
+     PRINT(__FUNCTION__)<<"Drop_table()->Table_Name "<<Table_Name;
      QSqlQuery queryDROP;
      queryDROP.exec("drop table "+Table_Name);
      TreeViewList();
@@ -448,27 +448,27 @@ void SqlQuery::Drop_table()
 void SqlQuery::Import_table()
 {
     Export=false;
-    qDebug()<<"Import_table()->Table_Name "<<Table_Name;
+    PRINT(__FUNCTION__)<<"Import_table()->Table_Name "<<Table_Name;
     on_pushButton_Upload_clicked();
 }
 
 void SqlQuery::Export_table()
 {
     Export=true;
-    qDebug()<<"Export_table()->Table_Name "<<Table_Name;
+    PRINT(__FUNCTION__)<<"Export_table()->Table_Name "<<Table_Name;
     on_pushButton_Upload_clicked();
 }
 
 bool SqlQuery::eventFilter(QObject *obj, QEvent *event)
 {
-    //qDebug()<<"event"<<obj;
+    //PRINT(__FUNCTION__)<<"event"<<obj;
     if(obj==ui->lineEdit_query)
     {
         if (event->type() == QEvent::FocusIn)
         {
             ui->pushButton_Go->setDefault(true);
             ui->pushButton_Exit->setDefault(false);
-            qDebug() << "Default set Go";
+            PRINT(__FUNCTION__) << "Default set Go";
         }
         else
         {

@@ -9,6 +9,7 @@
 #include <QHBoxLayout>
 #include <QSqlError>
 #include <QMap>
+#include <common.h>
 
 extern QStringList str_query;
 extern QStringList typelist;

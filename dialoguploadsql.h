@@ -11,6 +11,7 @@
 #include <QSqlError>
 #include <QObject>
 #include <QLabel>
+#include <common.h>
 
 namespace Ui {
 class DialogUploadSQL;

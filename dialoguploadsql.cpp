@@ -42,28 +42,26 @@ void DialogUploadSQL::on_pushButton_Upload_clicked()
 {
     ui->label_status->clear();
     ui->label_status->setText("Please wait..... ");
-    qDebug()<<db.databaseName()<<db.userName()<<db.password()<<m_fileName;
+    PRINT(__FUNCTION__)<<db.databaseName()<<db.userName()<<db.password()<<m_fileName;
 
     if(ui->lineEdit->text()!="")
     {
         if(Export)
         {
-            qDebug()<<"Exporting to "<<ui->lineEdit->text()<<"/"<<file_sql->text();
+            PRINT(__FUNCTION__)<<"Exporting to "<<ui->lineEdit->text()<<"/"<<file_sql->text();
             ui->label_status->setText("Please wait..... ");
 
             QString lCommand("mysqldump -u"+db.userName()+" -p"+db.password()+" "+db.databaseName()+">" +m_fileName+"/"+file_sql->text());
             system(lCommand.toStdString().c_str());
-            qDebug()<<"Exported successfully";
+            PRINT(__FUNCTION__)<<"Exported successfully";
             emit refresh();
             this->close();
         }
         else
         {
-
-
             QString lCommand("mysql -u"+db.userName()+" -p"+db.password()+" "+db.databaseName()+" -e \"source " + m_fileName + "\"");
             system(lCommand.toStdString().c_str());
-            qDebug()<<"Imported successfully";
+            PRINT(__FUNCTION__)<<"Imported successfully";
             emit refresh();
             this->close();
             /////////////////  by reading each line /////////////////////////////////////////////
@@ -94,7 +92,7 @@ void DialogUploadSQL::on_pushButton_Upload_clicked()
                         bool ex=query.exec(str);
                         if(!ex)
                         {
-                            qDebug()<<query_line<<query.lastError().text();
+                            PRINT(__FUNCTION__)<<query_line<<query.lastError().text();
                             i++;
                         }
                     }

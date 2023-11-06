@@ -23,7 +23,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Select Database</string>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>

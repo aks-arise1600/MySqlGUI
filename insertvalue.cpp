@@ -27,7 +27,7 @@ InsertValue::InsertValue(QWidget *parent) :
         if(query1.value(1).toString()=="enum('N','Y')"||query1.value(1).toString()=="blob"||query1.value(1).toString()=="text"
                 ||query1.value(1).toString()=="timestamp")
         {
-            //qDebug()<<query1.value(1).toString();
+            //PRINT(__FUNCTION__)<<query1.value(1).toString();
             type_id=query1.value(1).toString();
             Limit="1";
         }
@@ -43,7 +43,7 @@ InsertValue::InsertValue(QWidget *parent) :
             Limit=query1.value(1).toString().split(QRegularExpression("\\W+"), QString::SkipEmptyParts).at(1);
         }
         AddItems(Column_name,type_id,Limit.toInt());
-        qDebug()<<Column_name<<"\t"<<type_id<<"\t"<<Limit;
+        PRINT(__FUNCTION__)<<Column_name<<"\t"<<type_id<<"\t"<<Limit;
     }
 }
 
@@ -100,12 +100,12 @@ void InsertValue::Insert_into()
     {
         emit textGet(ui->listWidget->itemWidget(ui->listWidget->item(i))->objectName());
     }
-    qDebug()<<"ColumnList"<<str_query<<" TypeList"<<typelist;
+    PRINT(__FUNCTION__)<<"ColumnList"<<str_query<<" TypeList"<<typelist;
     QString strList;int j=0;
     strList = "insert into "+Table_Name+" values(";
     while(j<str_query.size())
     {
-        qDebug()<<str_query.at(j)<<typelist.at(j);
+        PRINT(__FUNCTION__)<<str_query.at(j)<<typelist.at(j);
         if(j!=str_query.size()-1)
         {
             if(typelist.at(j)=="varchar")
@@ -130,12 +130,12 @@ void InsertValue::Insert_into()
         }
         j++;
     }
-    qDebug()<<strList;
+    PRINT(__FUNCTION__)<<strList;
     QSqlQuery query2;
     bool ex=query2.exec(strList);
     if(!ex)
     {
-        qDebug()<<query2.lastError().text();
+        PRINT(__FUNCTION__)<<query2.lastError().text();
         ui->label_status->setText(query2.lastError().text());
     }
     else

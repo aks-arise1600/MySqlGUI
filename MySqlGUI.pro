@@ -38,7 +38,8 @@ HEADERS += \
     dialogselectdb.h \
     dialoguploadsql.h \
     insertvalue.h \
-    insertline.h
+    insertline.h \
+    common.h
 
 FORMS += \
         mysqllogin.ui \

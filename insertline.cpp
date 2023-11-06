@@ -72,12 +72,12 @@ void InsertLine::getlineText(QString str)
         if(this->text()!="")
         {
             str_query.append(this->text());
-            //qDebug()<<this->text()<<this->typeID;
+            //PRINT(__FUNCTION__)<<this->text()<<this->typeID;
         }
         else
         {
             str_query.append("NULL");
-            //qDebug()<<"NULL"<<this->typeID;
+            //PRINT(__FUNCTION__)<<"NULL"<<this->typeID;
 
         }
         typelist.append(this->typeID);

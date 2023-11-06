@@ -80,7 +80,7 @@ void MysqlLogin::on_pushButton_open_clicked()
         if(!ui->lineEdit_UserName->text().isEmpty()&&!ui->lineEdit_Password->text().isEmpty())
         {
             ui->label_Message->setText("Please wait ...");
-            qDebug()<<" not empty"<<HostName();
+            PRINT(__FUNCTION__)<<" not empty"<<HostName();
             db.setUserName(UserName());
             db.setPassword(Password());
             db.setHostName(HostName());
@@ -88,7 +88,7 @@ void MysqlLogin::on_pushButton_open_clicked()
             if(db.open())
             {
                 ui->label_Message->setText("<font color=green>Database Connected</font>");
-                qDebug() <<" Database Successfully opened";
+                PRINT(__FUNCTION__) <<" Database Successfully opened";
                 QSqlQuery query1("SHOW DATABASES");
                 ui->comboBox_datbase->addItem("Select DB");
                 while(query1.next())
@@ -104,14 +104,14 @@ void MysqlLogin::on_pushButton_open_clicked()
             else
             {
                 ui->label_Message->setText("<font color=red>Database not Connected</font>");
-                qDebug() << "Database not opened";
+                PRINT(__FUNCTION__) << "Database not opened";
                 ui->label_Message->setText("<font color=red>username/password/host are mismatch.</font>");
                 //QMessageBox::information(this,tr("Database Connection"),"<font color=red>Database Connection error due to username/password/host are mismatch.</font>");
             }
         }
         else
         {
-            qDebug()<<" empty";
+            PRINT(__FUNCTION__)<<" empty";
             ui->label_Message->setText("<font color=red>username/password/host fields <br>should not be empty.</font>");
             //QMessageBox::warning(this,tr("Error Login"),"<font color=red>username/password/host fields should not be empty.</font>");
         }
@@ -128,7 +128,7 @@ void MysqlLogin::on_pushButton_open_clicked()
             Connection=false;
             SqlQuery *sql = new SqlQuery;
             sql->show();
-            qDebug() <<"Database "<<Database()<<db.databaseName();
+            PRINT(__FUNCTION__) <<"Database "<<Database()<<db.databaseName();
             this->close();
         }
         else

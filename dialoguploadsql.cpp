@@ -1,15 +1,26 @@
+/**
+* @file DialogUploadSQL.cpp
+* @author Anil Kumar
+* @date 17-11-2017
+* @brief This DialogUploadSQL class, It's responsible for import and export data of select database.
+*/
 #include "dialoguploadsql.h"
 #include "ui_dialoguploadsql.h"
 extern QSqlDatabase db;
-extern bool Export;
 
-DialogUploadSQL::DialogUploadSQL(QWidget *parent) :
+/**
+ * @brief DialogUploadSQL::DialogUploadSQL
+ * @param parent
+ * @param isexport
+ */
+DialogUploadSQL::DialogUploadSQL(QWidget *parent, bool isexport) :
     QDialog(parent),
     ui(new Ui::DialogUploadSQL)
 {
     ui->setupUi(this);
+    is_export = isexport;
     m_fileName="";
-    if(Export)
+    if(is_export)
     {
         //ui->pushButton_browse->hide();
         file_sql=new QLabel(db.databaseName()+".sql");
@@ -19,25 +30,34 @@ DialogUploadSQL::DialogUploadSQL(QWidget *parent) :
     }
 }
 
+/**
+ * @brief DialogUploadSQL::~DialogUploadSQL
+ */
 DialogUploadSQL::~DialogUploadSQL()
 {
     delete ui;
 }
 
+/**
+ * @brief DialogUploadSQL::on_pushButton_browse_clicked
+ */
 void DialogUploadSQL::on_pushButton_browse_clicked()
 {
-    if(Export)
+    if(is_export)
     {
         m_fileName= QFileDialog::getExistingDirectory(this, tr("Open Directory"),
-                                                      "/home",
+                                                      QDir::homePath(),
                                                       QFileDialog::ShowDirsOnly
                                                       | QFileDialog::DontResolveSymlinks);
     }
     else
-        m_fileName = QFileDialog::getOpenFileName(this, tr("Open File"), "/home",tr("( *.sql)"));
+        m_fileName = QFileDialog::getOpenFileName(this, tr("Open File"), QDir::homePath(),tr("( *.sql)"));
     ui->lineEdit->setText(m_fileName);
 }
 
+/**
+ * @brief DialogUploadSQL::on_pushButton_Upload_clicked
+ */
 void DialogUploadSQL::on_pushButton_Upload_clicked()
 {
     ui->label_status->clear();
@@ -46,7 +66,7 @@ void DialogUploadSQL::on_pushButton_Upload_clicked()
 
     if(ui->lineEdit->text()!="")
     {
-        if(Export)
+        if(is_export)
         {
             PRINT(__FUNCTION__)<<"Exporting to "<<ui->lineEdit->text()<<"/"<<file_sql->text();
             ui->label_status->setText("Please wait..... ");
@@ -111,7 +131,7 @@ void DialogUploadSQL::on_pushButton_Upload_clicked()
     }
     else
     {
-        if(Export)
+        if(is_export)
             ui->label_status->setText("<font color =red>folder not selected !!</font>");
         else
             ui->label_status->setText("<font color =red>Not sql file founded !!</font>");

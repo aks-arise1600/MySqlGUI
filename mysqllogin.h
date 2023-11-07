@@ -1,3 +1,9 @@
+/**
+* @file MysqlLogin.h
+* @author Anil Kumar
+* @date 15-11-2017
+* @brief This is header of MysqlLogin class.
+*/
 #ifndef MYSQLLOGIN_H
 #define MYSQLLOGIN_H
 

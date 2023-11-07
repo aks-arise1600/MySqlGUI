@@ -1,7 +1,17 @@
+/**
+* @file MysqlLogin.cpp
+* @author Anil Kumar
+* @date 15-11-2017
+* @brief This MysqlLogin class, it's responsible for MySQL connection.
+*/
 #include "mysqllogin.h"
 #include "ui_mysqllogin.h"
 extern QSqlDatabase db= QSqlDatabase::addDatabase("QMYSQL");
 
+/**
+ * @brief MysqlLogin::MysqlLogin
+ * @param parent
+ */
 MysqlLogin::MysqlLogin(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MysqlLogin)
@@ -31,12 +41,18 @@ MysqlLogin::MysqlLogin(QWidget *parent) :
     ///////////////////////////////////////////////////////////////////////////
 
 }
-
+/**
+ * @brief MysqlLogin::~MysqlLogin
+ */
 MysqlLogin::~MysqlLogin()
 {
     delete ui;
 }
 
+/**
+ * @brief MysqlLogin::HostName
+ * @return
+ */
 const QString MysqlLogin::HostName()
 {
     if(ui->lineEdit_Host->text()=="")
@@ -45,17 +61,29 @@ const QString MysqlLogin::HostName()
     return ui->lineEdit_Host->text();
 }
 
+/**
+ * @brief MysqlLogin::UserName
+ * @return
+ */
 const QString MysqlLogin::UserName()
 {
     return ui->lineEdit_UserName->text();
 }
 
+/**
+ * @brief MysqlLogin::Password
+ * @return
+ */
 const QString MysqlLogin::Password()
 {
     return ui->lineEdit_Password->text();
 
 }
 
+/**
+ * @brief MysqlLogin::Database
+ * @return
+ */
 const QString MysqlLogin::Database()
 {
     if(ui->comboBox_datbase->currentText()!="Select DB")
@@ -64,6 +92,9 @@ const QString MysqlLogin::Database()
         return QString("NULL");
 }
 
+/**
+ * @brief MysqlLogin::on_pushButton_Clear_clicked
+ */
 void MysqlLogin::on_pushButton_Clear_clicked()
 {
     ui->lineEdit_Host->clear();
@@ -72,15 +103,18 @@ void MysqlLogin::on_pushButton_Clear_clicked()
     ui->label_Message->clear();
 }
 
+/**
+ * @brief MysqlLogin::on_pushButton_open_clicked
+ */
 void MysqlLogin::on_pushButton_open_clicked()
 {
     ui->label_Message->clear();
     if(Connection==false)
     {
-        if(!ui->lineEdit_UserName->text().isEmpty()&&!ui->lineEdit_Password->text().isEmpty())
+        if(!ui->lineEdit_UserName->text().isEmpty() && !ui->lineEdit_Password->text().isEmpty())
         {
             ui->label_Message->setText("Please wait ...");
-            PRINT(__FUNCTION__)<<" not empty"<<HostName();
+            PRINT(__FUNCTION__)<<"not empty"<<HostName();
             db.setUserName(UserName());
             db.setPassword(Password());
             db.setHostName(HostName());
@@ -88,7 +122,7 @@ void MysqlLogin::on_pushButton_open_clicked()
             if(db.open())
             {
                 ui->label_Message->setText("<font color=green>Database Connected</font>");
-                PRINT(__FUNCTION__) <<" Database Successfully opened";
+                PRINT(__FUNCTION__) <<"Database Successfully opened";
                 QSqlQuery query1("SHOW DATABASES");
                 ui->comboBox_datbase->addItem("Select DB");
                 while(query1.next())

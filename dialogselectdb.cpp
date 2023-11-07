@@ -1,8 +1,17 @@
+/**
+* @file DialogSelectDB.cpp
+* @author Anil Kumar
+* @date 17-11-2017
+* @brief This DialogSelectDB class, It's responsible for select or change database.
+*/
 #include "dialogselectdb.h"
 #include "ui_dialogselectdb.h"
 extern QSqlDatabase db;
 
-
+/**
+ * @brief DialogSelectDB::DialogSelectDB
+ * @param parent
+ */
 DialogSelectDB::DialogSelectDB(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::DialogSelectDB)
@@ -18,11 +27,17 @@ DialogSelectDB::DialogSelectDB(QWidget *parent) :
 
 }
 
+/**
+ * @brief DialogSelectDB::~DialogSelectDB
+ */
 DialogSelectDB::~DialogSelectDB()
 {
     delete ui;
 }
 
+/**
+ * @brief DialogSelectDB::on_pushButton_ok_clicked
+ */
 void DialogSelectDB::on_pushButton_ok_clicked()
 {
     db.setDatabaseName(ui->comboBox->currentText());

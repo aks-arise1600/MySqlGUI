@@ -8,5 +8,8 @@
         <file>images/delete.png</file>
         <file>images/add.png</file>
         <file>images/bottom.png</file>
+        <file>images/scroll_up.png</file>
+        <file>images/scroll_down.png</file>
+        <file>images/mysql-gui.png</file>
     </qresource>
 </RCC>

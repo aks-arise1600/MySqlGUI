@@ -28,7 +28,7 @@ set(SRC_FILES
 		main.cpp
 		dialogselectdb.cpp
 		dialoguploadsql.cpp
-		insertline.cpp
+		insertlineform.cpp
 		insertvalue.cpp
 		mysqllogin.cpp
 		sqlquery.cpp
@@ -37,7 +37,7 @@ set(SRC_FILES
 set(HEADER_FILES
 		dialogselectdb.h
 		dialoguploadsql.h
-		insertline.h
+		insertlineform.h
 		insertvalue.h
 		mysqllogin.h
 		sqlquery.h
@@ -46,6 +46,7 @@ set(HEADER_FILES
 set(UI_FILES
 		dialogselectdb.ui
 		dialoguploadsql.ui
+		insertlineform.ui
 		insertvalue.ui
 		mysqllogin.ui
 		sqlquery.ui

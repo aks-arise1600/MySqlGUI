@@ -25,6 +25,10 @@
   <property name="windowTitle">
    <string>MySQL Login</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="icons.qrc">
+    <normaloff>:/images/mysql-gui.png</normaloff>:/images/mysql-gui.png</iconset>
+  </property>
   <property name="styleSheet">
    <string notr="true">background-color: rgb(238, 238, 236);</string>
   </property>
@@ -47,12 +51,15 @@
       <property name="font">
        <font>
         <pointsize>15</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
+        <weight>50</weight>
+        <bold>false</bold>
        </font>
       </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(238, 238, 225);</string>
+      </property>
       <property name="title">
-       <string>MySQL</string>
+       <string>MySQL Connection</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -399,6 +406,8 @@ background-color: rgb(238, 238, 236);</string>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="icons.qrc"/>
+ </resources>
  <connections/>
 </ui>

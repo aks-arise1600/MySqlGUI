@@ -30,7 +30,7 @@ SOURCES += \
     dialogselectdb.cpp \
     dialoguploadsql.cpp \
     insertvalue.cpp \
-    insertline.cpp
+    insertlineform.cpp
 
 HEADERS += \
         mysqllogin.h \
@@ -38,14 +38,15 @@ HEADERS += \
     dialogselectdb.h \
     dialoguploadsql.h \
     insertvalue.h \
-    insertline.h \
-    common.h
+    common.h \
+    insertlineform.h
 
 FORMS += \
         mysqllogin.ui \
     sqlquery.ui \
     dialogselectdb.ui \
     dialoguploadsql.ui \
-    insertvalue.ui
+    insertvalue.ui \
+    insertlineform.ui
 RESOURCES += \
     icons.qrc

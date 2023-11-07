@@ -1,3 +1,9 @@
+/**
+* @file DialogSelectDB.h
+* @author Anil Kumar
+* @date 17-11-2017
+* @brief This is header of DialogSelectDB class.
+*/
 #ifndef DIALOGSELECTDB_H
 #define DIALOGSELECTDB_H
 

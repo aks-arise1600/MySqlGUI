@@ -6,18 +6,22 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>876</width>
-    <height>466</height>
+    <width>1280</width>
+    <height>570</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>850</width>
-    <height>350</height>
+    <width>0</width>
+    <height>0</height>
    </size>
   </property>
   <property name="windowTitle">
    <string>MySQL Tables</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="icons.qrc">
+    <normaloff>:/images/mysql-gui.png</normaloff>:/images/mysql-gui.png</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true"/>
@@ -30,7 +34,7 @@
        <widget class="QTreeView" name="treeView">
         <property name="minimumSize">
          <size>
-          <width>80</width>
+          <width>100</width>
           <height>0</height>
          </size>
         </property>
@@ -40,13 +44,221 @@
           <height>16777215</height>
          </size>
         </property>
+        <property name="styleSheet">
+         <string notr="true">
+QScrollBar:vertical {
+
+  border-color: rgb(227, 227, 227);
+  border-width: 1px;
+  border-style: solid;
+
+  background-color: rgb(240, 240, 240);
+  width: 30px;
+  margin: 26px 0 26px 0;
+}
+
+QScrollBar::handle:vertical {
+
+  	background-color: rgb(200, 200, 200);
+  	min-height: 100px;
+	max-height: 200px;
+	margin-top: -2px;
+	margin-bottom: -2px;
+	border-radius: 4px;
+}
+
+ QScrollBar::add-line:vertical {
+    border: 1px solid grey;
+  	background-color: rgb(241, 241, 241);
+    height: 20px;
+    subcontrol-position: bottom;
+    subcontrol-origin: margin;
+}
+
+QScrollBar::sub-line:vertical {
+    border: 1px solid grey;
+    background-color: rgb(241, 241, 241);
+    height: 20px;
+    subcontrol-position: top;
+    subcontrol-origin: margin;
+}
+
+QScrollBar::up-arrow:vertical
+{
+  	image: url(:/images/scroll_up.png);
+	height : 20px;
+	width: 20px;
+}
+
+QScrollBar::down-arrow:vertical
+{
+  	image: url(:/images/scroll_down.png);
+	height : 20px;
+	width: 20px;
+}
+</string>
+        </property>
+        <property name="editTriggers">
+         <set>QAbstractItemView::NoEditTriggers</set>
+        </property>
+        <property name="alternatingRowColors">
+         <bool>true</bool>
+        </property>
        </widget>
       </item>
       <item>
-       <widget class="QTableView" name="tableView_QueryData">
-        <property name="styleSheet">
-         <string notr="true"/>
+       <widget class="QFrame" name="frame">
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
         </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <property name="spacing">
+          <number>2</number>
+         </property>
+         <property name="leftMargin">
+          <number>1</number>
+         </property>
+         <property name="topMargin">
+          <number>1</number>
+         </property>
+         <property name="rightMargin">
+          <number>1</number>
+         </property>
+         <property name="bottomMargin">
+          <number>1</number>
+         </property>
+         <item>
+          <widget class="QLabel" name="label_Table">
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QTableView" name="tableView_QueryData">
+           <property name="styleSheet">
+            <string notr="true">
+QScrollBar:vertical {
+
+  border-color: rgb(227, 227, 227);
+  border-width: 1px;
+  border-style: solid;
+
+  background-color: rgb(240, 240, 240);
+  width: 40px;
+  margin: 26px 0 26px 0;
+}
+
+QScrollBar::handle:vertical {
+
+  	background-color: rgb(200, 200, 200);
+  	min-height: 100px;
+	max-height: 200px;
+	margin-top: -2px;
+	margin-bottom: -2px;
+	border-radius: 4px;
+}
+
+ QScrollBar::add-line:vertical {
+    border: 1px solid grey;
+  	background-color: rgb(241, 241, 241);
+    height: 20px;
+    subcontrol-position: bottom;
+    subcontrol-origin: margin;
+}
+
+QScrollBar::sub-line:vertical {
+    border: 1px solid grey;
+    background-color: rgb(241, 241, 241);
+    height: 20px;
+    subcontrol-position: top;
+    subcontrol-origin: margin;
+}
+
+QScrollBar::up-arrow:vertical
+{
+  	image: url(:/images/scroll_up.png);
+	height : 20px;
+	width: 20px;
+}
+
+QScrollBar::down-arrow:vertical
+{
+  	image: url(:/images/scroll_down.png);
+	height : 20px;
+	width: 20px;
+}
+
+# ### **** 
+
+QScrollBar:horizontal {
+
+  border-color: rgb(227, 227, 227);
+  border-width: 1px;
+  border-style: solid;
+
+  background-color: rgb(240, 240, 240);
+  width: 40px;
+  margin: 26px 0 26px 0;
+}
+
+QScrollBar::handle:horizontal {
+
+  	background-color: rgb(200, 200, 200);
+  	min-height: 100px;
+	max-height: 200px;
+	margin-top: -2px;
+	margin-bottom: -2px;
+	border-radius: 4px;
+}
+
+ QScrollBar::add-line:horizontal {
+    border: 1px solid grey;
+  	background-color: rgb(241, 241, 241);
+    height: 20px;
+    subcontrol-position: bottom;
+    subcontrol-origin: margin;
+}
+
+QScrollBar::sub-line:horizontal {
+    border: 1px solid grey;
+    background-color: rgb(241, 241, 241);
+    height: 20px;
+    subcontrol-position: top;
+    subcontrol-origin: margin;
+}
+
+
+
+</string>
+           </property>
+           <property name="editTriggers">
+            <set>QAbstractItemView::NoEditTriggers</set>
+           </property>
+           <property name="alternatingRowColors">
+            <bool>true</bool>
+           </property>
+           <attribute name="horizontalHeaderDefaultSectionSize">
+            <number>120</number>
+           </attribute>
+           <attribute name="horizontalHeaderMinimumSectionSize">
+            <number>150</number>
+           </attribute>
+          </widget>
+         </item>
+        </layout>
        </widget>
       </item>
      </layout>
@@ -115,26 +327,28 @@
      </layout>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_3">
-      <item>
-       <widget class="QLineEdit" name="lineEdit_query"/>
-      </item>
-     </layout>
+     <widget class="QLineEdit" name="lineEdit_Query">
+      <property name="font">
+       <font>
+        <family>Bitstream Vera Serif</family>
+        <italic>true</italic>
+       </font>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
     </item>
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <item>
-       <widget class="QLabel" name="label_error">
-        <property name="styleSheet">
-         <string notr="true">font: 25 9pt &quot;Ubuntu&quot;;
+     <widget class="QLabel" name="label_error">
+      <property name="styleSheet">
+       <string notr="true">font: 25 9pt &quot;Ubuntu&quot;;
 color: rgb(239, 41, 41);</string>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
-     </layout>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
     </item>
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -199,13 +413,55 @@ color: rgb(239, 41, 41);</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>876</width>
+     <width>1280</width>
      <height>22</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionChange_Database"/>
+    <addaction name="separator"/>
+    <addaction name="actionQuit"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionAbout"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionChange_Database">
+   <property name="text">
+    <string>Change Database</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+D</string>
+   </property>
+  </action>
+  <action name="actionQuit">
+   <property name="text">
+    <string>Quit</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+X</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>About</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+H</string>
+   </property>
+  </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="icons.qrc"/>
+ </resources>
  <connections/>
 </ui>

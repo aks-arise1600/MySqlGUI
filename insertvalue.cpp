@@ -1,3 +1,10 @@
+/**
+* @file InsertValue.cpp
+* @author Anil Kumar
+* @date 15-11-2017
+* @brief This InsertValue class, It has insert data fields and inserting data in DB.
+*/
+
 #include "insertvalue.h"
 #include "ui_insertvalue.h"
 #define TINYINT 1
@@ -5,33 +12,35 @@
 #define INT 3
 #define FLOAT 4
 
-
-extern QString Table_Name;
-QStringList str_query;
-QStringList typelist;
-
-InsertValue::InsertValue(QWidget *parent) :
+/**
+ * @brief InsertValue::InsertValue
+ * @param parent
+ * @param tblName
+ */
+InsertValue::InsertValue(QWidget *parent, QString tblName) :
     QWidget(parent),
     ui(new Ui::InsertValue)
 {
     ui->setupUi(this);
-    this->setWindowTitle("insert into "+Table_Name);
+    strTableName = tblName;
+    this->setWindowTitle("insert into "+strTableName);
     this->setWindowFlags(Qt::WindowCloseButtonHint);
-    connect(ui->pushButton_insert,SIGNAL(clicked()),this,SLOT(Insert_into()));
-    count=0;
-    QSqlQuery query1("show columns from "+Table_Name);
+    connect(ui->pushButton_insert,SIGNAL(clicked()),this,SLOT(sl_Insert_into()));
+    QSqlQuery query1("show columns from "+strTableName);
     while(query1.next())
     {
         QString Column_name=query1.value(0).toString();
         QString type_id;QString Limit;
+        PRINT(__FUNCTION__)<<query1.value(1).toString();
         if(query1.value(1).toString()=="enum('N','Y')"||query1.value(1).toString()=="blob"||query1.value(1).toString()=="text"
-                ||query1.value(1).toString()=="timestamp")
+                ||query1.value(1).toString()=="timestamp" || query1.value(1).toString()=="json")
         {
             //PRINT(__FUNCTION__)<<query1.value(1).toString();
             type_id=query1.value(1).toString();
             Limit="1";
         }
-        else if(query1.value(1).toString().toLower()=="float")
+        else if(query1.value(1).toString().toLower()=="float" || query1.value(1).toString().toLower()=="int"
+                || query1.value(1).toString().toLower()=="bigint")
         {
             type_id=query1.value(1).toString();
             Limit="10";
@@ -47,89 +56,48 @@ InsertValue::InsertValue(QWidget *parent) :
     }
 }
 
+/**
+ * @brief InsertValue::~InsertValue
+ */
 InsertValue::~InsertValue()
 {
     delete ui;
 }
 
+/**
+ * @brief InsertValue::AddItems
+ * @param str
+ * @param TypId
+ * @param size
+ */
 void InsertValue::AddItems(QString str,QString TypId, int size)
 {
-    font = new QFont;
-    font -> setFamily("Sans Serif");
-    font -> setPointSize(12);
-    font -> setBold(false);
-    QSpacerItem *spacer_left, *spacer_right;
-    spacer_left       = new QSpacerItem(1, 1, QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
-    spacer_right      = new QSpacerItem(1, 1, QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
 
-    Label=new QLabel;
-    Label->setFont(*font);
-    Label->setText(str);
-
-    Line=new InsertLine(str,TypId,size);
-    Line-> setMinimumSize(QSize(210, 20));
-    Line->setFont(*font);
-    //Line->setStyleSheet("background-color:lightgrey; color:black;");
-
-    connect(this,SIGNAL(textGet(QString)),Line,SLOT(getlineText(QString)));
-
-    horizontal= new QHBoxLayout;
-    item= new QListWidgetItem;
-
-    horizontal->addWidget(Label);
-    horizontal->addSpacerItem(spacer_left);
-    horizontal->addSpacerItem(spacer_right);
-    horizontal->addWidget(Line);
-    horizontal->setAlignment(Label, Qt::AlignLeft);
-    horizontal->setAlignment(Line, Qt::AlignRight);
-
-    widget= new QWidget;
-    widget->setObjectName(str);
-    widget->setLayout(horizontal);
-    item->setSizeHint(QSize(60, 30));
-    ui->listWidget->insertItem((count++), item);
-    ui->listWidget->setItemWidget(item, widget);
-    ui->listWidget->setCurrentRow(ui->listWidget->count()-1);
+    InsertLineForm * iLineForm = new InsertLineForm(0,str,TypId,size);
+    listInputs << iLineForm;
+    QListWidgetItem *item  = new QListWidgetItem();
+    item-> setSizeHint(iLineForm->minimumSizeHint());
+    ui->listWidget->addItem(item);
+    ui->listWidget->setItemWidget(item, iLineForm);
 
 }
 
-void InsertValue::Insert_into()
+/**
+ * @brief InsertValue::sl_Insert_into
+ */
+void InsertValue::sl_Insert_into()
 {
-    str_query.clear(); typelist.clear();
-    for(int i=0;i<ui->listWidget->count();i++)
-    {
-        emit textGet(ui->listWidget->itemWidget(ui->listWidget->item(i))->objectName());
+    QString Columns, Vlues;
+    foreach (InsertLineForm *input, listInputs) {
+        Columns+="`"+input->m_GetcNameValue()+"`,";
+        Vlues+="'"+input->m_GetTypeValue()+"',";
     }
-    PRINT(__FUNCTION__)<<"ColumnList"<<str_query<<" TypeList"<<typelist;
-    QString strList;int j=0;
-    strList = "insert into "+Table_Name+" values(";
-    while(j<str_query.size())
-    {
-        PRINT(__FUNCTION__)<<str_query.at(j)<<typelist.at(j);
-        if(j!=str_query.size()-1)
-        {
-            if(typelist.at(j)=="varchar")
-                strList+="'"+str_query.at(j)+"',";
-            else if(typelist.at(j)=="int")
-                strList+=str_query.at(j)+",";
-            else if(typelist.at(j)=="tinyint")
-                strList+=str_query.at(j)+",";
-            else if(typelist.at(j)=="float")
-                strList+=str_query.at(j)+",";
-        }
-        else
-        {
-            if(typelist.at(j)=="varchar")
-                strList+="'"+str_query.at(j)+"');";
-            else if(typelist.at(j)=="int")
-                strList+=str_query.at(j)+");";
-            else if(typelist.at(j)=="tinyint")
-                strList+=str_query.at(j)+");";
-            else if(typelist.at(j)=="float")
-                strList+=str_query.at(j)+");";
-        }
-        j++;
-    }
+//    PRINT(__FUNCTION__)<<"ColumnList"<<Columns<<" Vlues"<<Vlues;
+
+    // ** INSERT INTO `tbl_NAME`(`COL_1`, `COL_2`, `COL_3`, `COL_4`) VALUES ([value-1],[value-2],[value-3],[value-4])
+    QString strList = "insert into "+strTableName;
+    strList+=" ("+Columns.mid(0,Columns.size()-1)+") values ("+Vlues.mid(0,Vlues.size()-1)+");";
+
     PRINT(__FUNCTION__)<<strList;
     QSqlQuery query2;
     bool ex=query2.exec(strList);
@@ -140,4 +108,6 @@ void InsertValue::Insert_into()
     }
     else
         this->close();
+
+    emit si_RefreshTable(strTableName);
 }

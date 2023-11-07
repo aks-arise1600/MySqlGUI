@@ -1,39 +1,50 @@
+/**
+* @file sqlquery.cpp
+* @author Anil Kumar
+* @date 15-11-2017
+* @brief This sqlquery class, it's handle all SQL query as per clicked button.
+*/
+
+
 #include "sqlquery.h"
 #include "ui_sqlquery.h"
 extern QSqlDatabase db;
-QString Table_Name;//="NULL";
-bool Export;
 
+/**
+ * @brief SqlQuery::SqlQuery
+ * @param parent
+ */
 SqlQuery::SqlQuery(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::SqlQuery)
 {
     ui->setupUi(this);
     list.clear();
-    ui->treeView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->treeView->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(ui->treeView, SIGNAL(customContextMenuRequested(const QPoint &)), this, SLOT(onCustomContextMenu(const QPoint &)));
+    connect(ui->treeView,SIGNAL(clicked(QModelIndex)),this,SLOT(On_Click_treeview(QModelIndex)));
 
-    //this->installEventFilter(ui->lineEdit_query);
-    ui->lineEdit_query->installEventFilter(this);
+    connect(ui->actionChange_Database,SIGNAL(triggered(bool)),SLOT(on_pushButton_changeDB_clicked()));
+    connect(ui->actionQuit,SIGNAL(triggered(bool)),SLOT(sl_ExitClose()));
+    connect(ui->actionAbout,SIGNAL(triggered(bool)),SLOT(sl_About()));
 
-    ui->tableView_QueryData->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->lineEdit_Query->installEventFilter(this);
 
-    TreeViewList();
-    ui->tableView_QueryData->setEditTriggers(0);
+    ui->tableView_QueryData->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+
+    sl_TreeViewList();
     ui->pushButton_Upload->hide();
-    ui->tableView_QueryData->setStyleSheet("alternate-background-color: lightgrey;");
-    connect(ui->pushButton_Exit,SIGNAL(clicked(bool)),this,SLOT(ExitClose()));
-    connect(ui->pushButton_Clear,SIGNAL(clicked(bool)),ui->lineEdit_query,SLOT(clear()));
+    connect(ui->pushButton_Exit,SIGNAL(clicked()),this,SLOT(sl_ExitClose()));
+    connect(ui->pushButton_Clear,SIGNAL(clicked()),ui->lineEdit_Query,SLOT(clear()));
     ui->pushButton_Exit->setDefault(true);
-    //connect(ui->lineEdit_query, SIGNAL(cursorPositionChanged(int,int)),this,SLOT(QueryLineEdit()));
-    //ui->tableView_QueryData->horizontalHeader()->setStretchLastSection(true);
-    //ui->tableView_QueryData->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
-    //ui->tableView_QueryData->horizontalHeader()->setMaximumSectionSize(50);
-    Export=false;
+    isExport=false;
+
 }
 
+/**
+ * @brief SqlQuery::~SqlQuery
+ */
 SqlQuery::~SqlQuery()
 {
     delete ui;
@@ -42,8 +53,12 @@ SqlQuery::~SqlQuery()
     delete Model;
 }
 
-void SqlQuery::TreeViewList()
+/**
+ * @brief SqlQuery::sl_TreeViewList
+ */
+void SqlQuery::sl_TreeViewList()
 {
+    ui->lineEdit_Query->clear();
     int i=0;
     PRINT(__FUNCTION__)<<"in tree Database "<<db.databaseName();
     ui->label_selecteDB->setText(db.databaseName());
@@ -54,12 +69,8 @@ void SqlQuery::TreeViewList()
     ItemMain= new QStandardItem(db.databaseName()+"@"+db.hostName());
     Model->setHorizontalHeaderItem(0,ItemMain);
     ItemMain= new QStandardItem(db.databaseName());
-    //ItemMain->setBackground(Qt::blue);
     Model->setItem(0,ItemMain);
 
-    //    QSqlQuery query11("select count(*) from information_schema.tables where table_schema = database()");
-    //    query11.next();
-    //    PRINT(__FUNCTION__)<<query11.value(0).toInt();
     QSqlQuery query1("show tables from "+db.databaseName());
     while(query1.next())
     {
@@ -74,25 +85,20 @@ void SqlQuery::TreeViewList()
     ui->treeView->setModel(Model);
     ui->treeView->expandAll();
     ui->treeView->show();
-    connect(ui->treeView,SIGNAL(clicked(QModelIndex)),this,SLOT(On_Click_treeview(QModelIndex)));
 }
 
+/**
+ * @brief SqlQuery::on_pushButton_Go_clicked
+ */
 void SqlQuery::on_pushButton_Go_clicked()
 {
     ui->tableView_QueryData->repaint();
 
-//    QFont *font=new QFont;
-//    font -> setFamily("Sans Serif");
-//    font -> setPointSize(14);
-//    font -> setBold(true);
-//    //ui->tableView_QueryData->horizontalHeader ()->setFont (QFont::setFamily("Arial"));
-//    ui->tableView_QueryData->horizontalHeader ()->setStyleSheet ("QheaderView {font-size: 14pt;color: blue;}");
-
     ui->label_error->clear();
     strlist.clear();
-    if(!ui->lineEdit_query->text().isEmpty())
+    if(!ui->lineEdit_Query->text().isEmpty())
     {
-        str_query=ui->lineEdit_query->text();
+        str_query=ui->lineEdit_Query->text();
         QSqlQuery Test_query;
         bool test_bool= Test_query.exec(str_query);
         if(test_bool)
@@ -118,7 +124,7 @@ void SqlQuery::on_pushButton_Go_clicked()
             i=0;
             if(strlist.at(0)=="select" && strlist.at(1)=="*")
             {
-                SelectAll(strlist.at(3));
+                sl_SelectAll(strlist.at(3));
             }
             else if(strlist.at(0)=="select" && strlist.at(1)!="*")
             {
@@ -201,34 +207,34 @@ void SqlQuery::on_pushButton_Go_clicked()
                         if(str.toLower()=="update")
                         {
                             ui->label_error->setText("<font color=green>Successfully updated !!</font>");
-                            SelectAll(strlist.at(1));
+                            sl_SelectAll(strlist.at(1));
                         }
                         else if(str.toLower()=="drop")
                         {
                             ui->label_error->setText("<font color=green>Successfully droped !!</font>");
-                            //SelectAll(strlist.at(1));
-                            TreeViewList();
+                            //sl_SelectAll(strlist.at(1));
+                            sl_TreeViewList();
                         }
                         else if(str.toLower()=="create" && strlist.size()==3)
                         {
                             ui->label_error->setText("<font color=green>Successfully created database !!</font>");
-                            //SelectAll(strlist.at(1));
+                            //sl_SelectAll(strlist.at(1));
                             db.setDatabaseName(strlist.at(2));
-                            TreeViewList();
+                            sl_TreeViewList();
                         }
                         else if(str.toLower()=="delete")
                         {
                             ui->label_error->setText("<font color=green>deleted !!</font>");
-                            SelectAll(strlist.at(2));
+                            sl_SelectAll(strlist.at(2));
                         }
                         else if(str.toLower()=="create" && QString(strlist.at(1)).toLower()=="table")
                         {
-                            TreeViewList();
+                            sl_TreeViewList();
                             ui->tableView_QueryData->setModel(nullptr);
                         }
                         else if(str.toLower()=="insert")
                         {
-                            SelectAll(strlist.at(2));
+                            sl_SelectAll(strlist.at(2));
                         }
                     }
                 }
@@ -242,6 +248,10 @@ void SqlQuery::on_pushButton_Go_clicked()
 
 }
 
+/**
+ * @brief SqlQuery::On_Click_treeview
+ * @param M_index
+ */
 void SqlQuery::On_Click_treeview(QModelIndex M_index)
 {
     QVariant data = ui->treeView->model()->data(M_index);
@@ -249,18 +259,21 @@ void SqlQuery::On_Click_treeview(QModelIndex M_index)
     //PRINT(__FUNCTION__)<< "Model Index "/*<<M_index */<<text;
     if(text!=db.databaseName())
     {
-        ui->lineEdit_query->setText("select * from "+text);
-        SelectAll(text);
+        ui->lineEdit_Query->setText("select * from "+text);
+        sl_SelectAll(text);
     }
     else
     {
         ui->tableView_QueryData->setModel(nullptr);
-        ui->lineEdit_query->clear();
+        ui->lineEdit_Query->clear();
     }
 
 }
 
-void SqlQuery::ExitClose()
+/**
+ * @brief SqlQuery::sl_ExitClose
+ */
+void SqlQuery::sl_ExitClose()
 {
     db.close();
     this->close();
@@ -268,8 +281,9 @@ void SqlQuery::ExitClose()
     MyLog->show();
 }
 
-void SqlQuery::SelectAll(QString str)
+void SqlQuery::sl_SelectAll(QString str)
 {
+    ui->label_Table->setText(str);
     list.clear();
     int i=0;
     Model =new QStandardItemModel;
@@ -305,16 +319,25 @@ void SqlQuery::SelectAll(QString str)
     //PRINT(__FUNCTION__)<<ui->treeView->size();
 }
 
+/**
+ * @brief SqlQuery::on_pushButton_changeDB_clicked
+ */
 void SqlQuery::on_pushButton_changeDB_clicked()
 {
-    sdb=new DialogSelectDB;
+    if(sdb)
+        delete sdb;
+
+    sdb=new DialogSelectDB(this);
     sdb->exec();
-    TreeViewList();
+    sl_TreeViewList();
     ui->tableView_QueryData->setModel(nullptr);
     ui->label_selecteDB->setText(db.databaseName());
 }
 
-void SqlQuery::QueryLineEdit()
+/**
+ * @brief SqlQuery::sl_QueryLineEdit
+ */
+void SqlQuery::sl_QueryLineEdit()
 {
     //PRINT(__FUNCTION__)<<"GO ";
     ui->pushButton_Go->setDefault(true);
@@ -324,11 +347,15 @@ void SqlQuery::QueryLineEdit()
 void SqlQuery::on_pushButton_Upload_clicked()
 {
     //PRINT(__FUNCTION__)<<db.databaseName()<<db.userName()<<db.password();
-    DialogUploadSQL *Upload_sql = new DialogUploadSQL;
-    connect(Upload_sql,SIGNAL(refresh()),this,SLOT(TreeViewList()));
+    DialogUploadSQL *Upload_sql = new DialogUploadSQL(0,isExport);
+    connect(Upload_sql,SIGNAL(refresh()),this,SLOT(sl_TreeViewList()));
     Upload_sql->show();
 }
 
+/**
+ * @brief SqlQuery::onCustomContextMenu
+ * @param point
+ */
 void SqlQuery::onCustomContextMenu(const QPoint &point)
 {
     PRINT(__FUNCTION__)<<"right click";
@@ -341,60 +368,59 @@ void SqlQuery::onCustomContextMenu(const QPoint &point)
     if(db.databaseName()==Table_Name)
     {
         QAction *import= new QAction(QIcon(":/images/add.png"),tr("Import"),this);
-        connect(import, &QAction::triggered, this, &SqlQuery::Import_table);
+        connect(import, &QAction::triggered, this, &SqlQuery::sl_Import_table);
         menu->addAction(import);
 
         QAction *_export= new QAction(QIcon(":/images/bottom.png"),tr("Export"),this);
-        connect(_export, &QAction::triggered, this, &SqlQuery::Export_table);
+        connect(_export, &QAction::triggered, this, &SqlQuery::sl_Export_table);
         menu->addAction(_export);
     }
     else
     {
         QAction *insert= new QAction(QIcon(":/images/add.png"),tr("Insert values"),this);
-        connect(insert, &QAction::triggered, this, &SqlQuery::Insert_table_values);
+        connect(insert, &QAction::triggered, this, &SqlQuery::sl_Insert_table_values);
         menu->addAction(insert);
 
         QAction *browse= new QAction(QIcon(":/images/clear.png"),tr("Browse"),this);
-        connect(browse, &QAction::triggered, this, &SqlQuery::Browse_table);
+        connect(browse, &QAction::triggered, this, &SqlQuery::sl_Browse_table);
         menu->addAction(browse);
 
         QAction *structure= new QAction(QIcon(":/images/settings.png"),tr("Structure"),this);
-        connect(structure, &QAction::triggered, this, &SqlQuery::Struct_table);
+        connect(structure, &QAction::triggered, this, &SqlQuery::sl_Struct_table);
         menu->addAction(structure);
 
-        QAction *drop_table= new QAction(QIcon(":/images/delete.png"),tr("Drop table"),this);
-        connect(drop_table, &QAction::triggered, this, &SqlQuery::Drop_table);
-        menu->addAction(drop_table);
+        QAction *sl_Drop_table= new QAction(QIcon(":/images/delete.png"),tr("Drop table"),this);
+        connect(sl_Drop_table, &QAction::triggered, this, &SqlQuery::sl_Drop_table);
+        menu->addAction(sl_Drop_table);
     }
     menu->popup(ui->treeView->viewport()->mapToGlobal(point));
 
 }
 
-void SqlQuery::Insert_table_values()
+/**
+ * @brief SqlQuery::sl_Insert_table_values
+ */
+void SqlQuery::sl_Insert_table_values()
 {
     this->setDisabled(true);
-    PRINT(__FUNCTION__)<<"Insert_table_values()->Table_Name "<<Table_Name<<Mdl_Index;
-    InsertValue *ivalue=new InsertValue;
+    PRINT(__FUNCTION__)<<"Table_Name "<<Table_Name<<Mdl_Index;
+    if(ivalue)
+        delete ivalue;
 
-//    foreach( QWidget* p_widget, qApp->topLevelWidgets() )
-//    {
-//        if ( QMainWindow* p_main_window = qobject_cast<QMainWindow*>( p_widget ) )
-//        {
-//            ivalue->setParent( p_main_window );
-//        }
-//    }
+    ivalue = new InsertValue(0,Table_Name);
+    connect(ivalue,SIGNAL(si_RefreshTable(QString)),SLOT(sl_SelectAll(QString)));
 
     ivalue->show();
-    //On_Click_treeview(Mdl_Index);
-    ui->tableView_QueryData->setModel(nullptr);
-    SelectAll(Table_Name);
     this->setEnabled(true);
 
 }
 
-void SqlQuery::Struct_table()
+/**
+ * @brief SqlQuery::sl_Struct_table
+ */
+void SqlQuery::sl_Struct_table()
 {
-    PRINT(__FUNCTION__)<<"Struct_table()->Table_Name "<<Table_Name;
+    PRINT(__FUNCTION__)<<"Table_Name "<<Table_Name;
     int i=0;
     Model =new QStandardItemModel;
     Model->setHorizontalHeaderItem(0,new QStandardItem("Field"));
@@ -430,39 +456,70 @@ void SqlQuery::Struct_table()
 
 }
 
-void SqlQuery::Browse_table()
+/**
+ * @brief SqlQuery::sl_Browse_table
+ */
+void SqlQuery::sl_Browse_table()
 {
-    PRINT(__FUNCTION__)<<"Browse_table()->Table_Name "<<Table_Name;
+    PRINT(__FUNCTION__)<<"Table_Name "<<Table_Name;
     On_Click_treeview(Mdl_Index);
 }
 
-void SqlQuery::Drop_table()
+/**
+ * @brief SqlQuery::sl_Drop_table
+ */
+void SqlQuery::sl_Drop_table()
 {
-     PRINT(__FUNCTION__)<<"Drop_table()->Table_Name "<<Table_Name;
+     PRINT(__FUNCTION__)<<"Table_Name "<<Table_Name;
      QSqlQuery queryDROP;
      queryDROP.exec("drop table "+Table_Name);
-     TreeViewList();
+     sl_TreeViewList();
      ui->tableView_QueryData->setModel(nullptr);
 }
 
-void SqlQuery::Import_table()
+/**
+ * @brief SqlQuery::sl_Import_table
+ */
+void SqlQuery::sl_Import_table()
 {
-    Export=false;
-    PRINT(__FUNCTION__)<<"Import_table()->Table_Name "<<Table_Name;
+    isExport=false;
+    PRINT(__FUNCTION__)<<"Table_Name "<<Table_Name;
     on_pushButton_Upload_clicked();
 }
 
-void SqlQuery::Export_table()
+/**
+ * @brief SqlQuery::sl_Export_table
+ */
+
+void SqlQuery::sl_Export_table()
 {
-    Export=true;
-    PRINT(__FUNCTION__)<<"Export_table()->Table_Name "<<Table_Name;
+    isExport=true;
+    PRINT(__FUNCTION__)<<"Table_Name "<<Table_Name;
     on_pushButton_Upload_clicked();
 }
 
+/**
+ * @brief SqlQuery::sl_About
+ */
+void SqlQuery::sl_About()
+{
+    QMessageBox::information(this,"About us","<b>MySQL GUI</b><br>"
+                                             "Version 1.1a<br>"
+                                             "<br>Copyright 2022-2023 The anil-arise1600. All rights reserved.<br>"
+                                             "<br>The program is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE WARRANTY OF DESIGN, "
+                                             "MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE");
+}
+
+/**
+ * @brief SqlQuery::eventFilter
+ * @param obj
+ * @param event
+ * @return
+ */
 bool SqlQuery::eventFilter(QObject *obj, QEvent *event)
 {
     //PRINT(__FUNCTION__)<<"event"<<obj;
-    if(obj==ui->lineEdit_query)
+    if(obj==ui->lineEdit_Query)
     {
         if (event->type() == QEvent::FocusIn)
         {
@@ -475,6 +532,6 @@ bool SqlQuery::eventFilter(QObject *obj, QEvent *event)
             ui->pushButton_Exit->setDefault(true);
             ui->pushButton_Go->setDefault(false);
         }
-
     }
+
 }

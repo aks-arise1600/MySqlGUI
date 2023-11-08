@@ -1,0 +1,9 @@
+<map id="InsertValue.h" name="InsertValue.h">
+<area shape="rect" id="node1" title="This is header of InsertValue class." alt="" coords="183,5,281,32"/>
+<area shape="rect" id="node2" href="$_data_query_window_8h.html" title="This is header of DataQueryWindow class." alt="" coords="87,80,228,107"/>
+<area shape="rect" id="node7" href="$_insert_value_8cpp.html" title="This InsertValue class, It has insert data fields and inserting data in DB." alt="" coords="252,80,364,107"/>
+<area shape="rect" id="node3" href="$_data_query_window_8cpp.html" title="This DataQueryWindow class, it&#39;s handle all SQL query as per clicked button." alt="" coords="5,155,160,181"/>
+<area shape="rect" id="node4" href="$_mysql_login_8h.html" title="This is header of MysqlLogin class." alt="" coords="184,155,283,181"/>
+<area shape="rect" id="node5" href="$main_8cpp.html" title="This main class." alt="" coords="136,229,211,256"/>
+<area shape="rect" id="node6" href="$_mysql_login_8cpp.html" title="This MysqlLogin class, it&#39;s responsible for MySQL connection." alt="" coords="235,229,349,256"/>
+</map>

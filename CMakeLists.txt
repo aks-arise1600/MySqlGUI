@@ -26,30 +26,30 @@ find_package(Qt5Core REQUIRED)
 
 set(SRC_FILES
 		main.cpp
-		dialogselectdb.cpp
-		dialoguploadsql.cpp
-		insertlineform.cpp
-		insertvalue.cpp
-		mysqllogin.cpp
-		sqlquery.cpp
+		MysqlLogin.cpp
+		DataQueryWindow.cpp
+		DialogSelectDB.cpp
+		DialogUploadSQL.cpp
+		InsertValue.cpp
+		InsertLineForm.cpp
 		)
 
 set(HEADER_FILES
-		dialogselectdb.h
-		dialoguploadsql.h
-		insertlineform.h
-		insertvalue.h
-		mysqllogin.h
-		sqlquery.h
+		MysqlLogin.h
+		DataQueryWindow.h
+		DialogSelectDB.h
+		DialogUploadSQL.h
+		InsertValue.h
+		InsertLineForm.h
 		)
 		
 set(UI_FILES
-		dialogselectdb.ui
-		dialoguploadsql.ui
-		insertlineform.ui
-		insertvalue.ui
-		mysqllogin.ui
-		sqlquery.ui
+		MysqlLogin.ui
+		DataQueryWindow.ui
+		DialogSelectDB.ui
+		DialogUploadSQL.ui
+		InsertValue.ui
+		InsertLineForm.ui
 		)
 		
 set(QRC_FILES

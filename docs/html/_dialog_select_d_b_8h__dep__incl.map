@@ -1,0 +1,9 @@
+<map id="DialogSelectDB.h" name="DialogSelectDB.h">
+<area shape="rect" id="node1" title="This is header of DialogSelectDB class." alt="" coords="177,5,303,32"/>
+<area shape="rect" id="node2" href="$_data_query_window_8h.html" title="This is header of DataQueryWindow class." alt="" coords="87,80,228,107"/>
+<area shape="rect" id="node7" href="$_dialog_select_d_b_8cpp.html" title="This DialogSelectDB class, It&#39;s responsible for select or change database." alt="" coords="253,80,393,107"/>
+<area shape="rect" id="node3" href="$_data_query_window_8cpp.html" title="This DataQueryWindow class, it&#39;s handle all SQL query as per clicked button." alt="" coords="5,155,160,181"/>
+<area shape="rect" id="node4" href="$_mysql_login_8h.html" title="This is header of MysqlLogin class." alt="" coords="184,155,283,181"/>
+<area shape="rect" id="node5" href="$main_8cpp.html" title="This main class." alt="" coords="136,229,211,256"/>
+<area shape="rect" id="node6" href="$_mysql_login_8cpp.html" title="This MysqlLogin class, it&#39;s responsible for MySQL connection." alt="" coords="235,229,349,256"/>
+</map>

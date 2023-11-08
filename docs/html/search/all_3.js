@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['eventfilter_18',['eventFilter',['../class_sql_query.html#afca59644fea04af531e8a05ec226c488',1,'SqlQuery']]]
+  ['eventfilter_16',['eventFilter',['../class_data_query_window.html#a2347e6c07b5140b4fec446a9b0845d5b',1,'DataQueryWindow']]]
 ];

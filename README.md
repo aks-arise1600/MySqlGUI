@@ -1,8 +1,9 @@
-![alt text](https://github.com/anil-arise1600/MySqlGUI/blob/main/images/mysql-gui.png?raw=true)
+<p>
+<img src="https://github.com/anil-arise1600/MySqlGUI/blob/main/images/mysql-gui.png?raw=true" alt="drawing" width="110"/>
+<b style="font-size: 2.5rem; color: #2ecc71">MySQL GUI </b>   1.1a
+</p>
 
-# MySQL GUI
-
-MySQL GUI is a UI based MySQL workbench.
+MySQL GUI is a UI based MySQL workbench. It is design as all SQL commands or queries to execute with user interactive mode.
 
 
 

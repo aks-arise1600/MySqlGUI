@@ -20,7 +20,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="mysql-gui.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="mysql-gui_1.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">MySQL GUI
    &#160;<span id="projectnumber">1.1a</span>
@@ -70,16 +70,21 @@ $(function() {
 <div class="title">common.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>This is common header for all classes.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;QDebug&gt;</code><br />
 <code>#include &lt;QDateTime&gt;</code><br />
+<code>#include &lt;QMessageBox&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for common.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="common_8h__incl.png" border="0" usemap="#common_8h" alt=""/></div>
 <map name="common_8h" id="common_8h">
-<area shape="rect" title=" " alt="" coords="51,5,134,32"/>
+<area shape="rect" title="This is common header for all classes." alt="" coords="103,5,186,32"/>
 <area shape="rect" title=" " alt="" coords="5,80,76,107"/>
 <area shape="rect" title=" " alt="" coords="100,80,189,107"/>
+<area shape="rect" title=" " alt="" coords="213,80,321,107"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -87,18 +92,20 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="common_8h__dep__incl.png" border="0" usemap="#common_8hdep" alt=""/></div>
 <map name="common_8hdep" id="common_8hdep">
-<area shape="rect" title=" " alt="" coords="279,5,361,32"/>
-<area shape="rect" href="dialoguploadsql_8h.html" title="This header of DialogUploadSQL class." alt="" coords="117,80,240,107"/>
-<area shape="rect" href="insertlineform_8h.html" title="This is header of InsertLineForm class." alt="" coords="265,80,375,107"/>
-<area shape="rect" href="insertvalue_8h.html" title="This is header of InsertValue class." alt="" coords="365,155,461,181"/>
-<area shape="rect" href="dialoguploadsql_8cpp.html" title=" " alt="" coords="5,155,141,181"/>
-<area shape="rect" href="sqlquery_8h.html" title="This is header of SqlQuery class." alt="" coords="196,229,276,256"/>
-<area shape="rect" href="mysqllogin_8h.html" title="This is header of MysqlLogin class." alt="" coords="189,304,283,331"/>
-<area shape="rect" href="sqlquery_8cpp.html" title=" " alt="" coords="307,304,402,331"/>
-<area shape="rect" href="main_8cpp.html" title=" " alt="" coords="141,379,216,405"/>
-<area shape="rect" href="mysqllogin_8cpp.html" title=" " alt="" coords="240,379,349,405"/>
-<area shape="rect" href="insertlineform_8cpp.html" title="This InsertLineForm class, It&#39;s UI of table column name and its value." alt="" coords="216,155,341,181"/>
-<area shape="rect" href="insertvalue_8cpp.html" title="This InsertValue class, It has insert data fields and inserting data in DB." alt="" coords="358,229,469,256"/>
+<area shape="rect" title="This is common header for all classes." alt="" coords="299,5,382,32"/>
+<area shape="rect" href="_dialog_select_d_b_8h.html" title="This is header of DialogSelectDB class." alt="" coords="30,80,157,107"/>
+<area shape="rect" href="_dialog_upload_s_q_l_8h.html" title="This header of DialogUploadSQL class." alt="" coords="218,80,356,107"/>
+<area shape="rect" href="_insert_value_8h.html" title="This is header of InsertValue class." alt="" coords="415,155,514,181"/>
+<area shape="rect" href="_insert_line_form_8h.html" title="This is header of InsertLineForm class." alt="" coords="431,80,551,107"/>
+<area shape="rect" href="_data_query_window_8h.html" title="This is header of DataQueryWindow class." alt="" coords="131,229,272,256"/>
+<area shape="rect" href="_dialog_select_d_b_8cpp.html" title="This DialogSelectDB class, It&#39;s responsible for select or change database." alt="" coords="24,155,164,181"/>
+<area shape="rect" href="_data_query_window_8cpp.html" title="This DataQueryWindow class, it&#39;s handle all SQL query as per clicked button." alt="" coords="50,304,204,331"/>
+<area shape="rect" href="_mysql_login_8h.html" title="This is header of MysqlLogin class." alt="" coords="228,304,327,331"/>
+<area shape="rect" href="main_8cpp.html" title="This main class." alt="" coords="180,379,255,405"/>
+<area shape="rect" href="_mysql_login_8cpp.html" title="This MysqlLogin class, it&#39;s responsible for MySQL connection." alt="" coords="280,379,393,405"/>
+<area shape="rect" href="_dialog_upload_s_q_l_8cpp.html" title="This DialogUploadSQL class, It&#39;s responsible for import and export data of select database." alt="" coords="240,155,390,181"/>
+<area shape="rect" href="_insert_value_8cpp.html" title="This InsertValue class, It has insert data fields and inserting data in DB." alt="" coords="408,229,520,256"/>
+<area shape="rect" href="_insert_line_form_8cpp.html" title="This InsertLineForm class, It&#39;s UI of table column name and its value." alt="" coords="538,155,673,181"/>
 </map>
 </div>
 </div>
@@ -109,7 +116,11 @@ Macros</h2></td></tr>
 <tr class="memitem:a4877528d1f0bf633233acdc19697666a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="common_8h.html#a4877528d1f0bf633233acdc19697666a">PRINT</a>(func)&#160;&#160;&#160;qDebug()&lt;&lt; QDateTime::currentDateTime().toString(&quot;yyyy/MM/dd hh:mm:ss&quot;)+&quot; &quot;+func</td></tr>
 <tr class="separator:a4877528d1f0bf633233acdc19697666a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Macro Definition Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>This is common header for all classes. </p>
+<dl class="section author"><dt>Author</dt><dd>Anil Kumar </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>7-11-2023 </dd></dl>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a4877528d1f0bf633233acdc19697666a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4877528d1f0bf633233acdc19697666a">&#9670;&nbsp;</a></span>PRINT</h2>
 
@@ -131,7 +142,7 @@ Macros</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Nov 7 2023 17:34:56 for MySQL GUI by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 8 2023 17:47:05 for MySQL GUI by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>

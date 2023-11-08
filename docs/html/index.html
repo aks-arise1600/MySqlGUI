@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MySQL GUI: MySQL GUI</title>
+<title>MySQL GUI: Main Page</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -20,7 +20,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="mysql-gui.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="mysql-gui_1.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">MySQL GUI
    &#160;<span id="projectnumber">1.1a</span>
@@ -65,38 +65,49 @@ $(function() {
 
 <div class="PageDoc"><div class="header">
   <div class="headertitle">
-<div class="title">MySQL GUI </div>  </div>
+<div class="title">MySQL GUI Documentation</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>MySQL GUI is a UI based MySQL workbench.</p>
-<h1><a class="anchor" id="autotoc_md1"></a>
-Install Dependencies</h1>
+<div class="textblock"><p><img src="https://github.com/anil-arise1600/MySqlGUI/blob/main/images/mysql-gui.png?raw=true" alt="drawing" width="110" class="inline"/> <b style="font-size: 2.5rem; color: #2ecc71">MySQL GUI </b> 1.1a </p>
+<p>MySQL GUI is a UI based MySQL workbench. It is design as all SQL commands or queries to execute with user interactive mode.</p>
+<h2><a class="anchor" id="autotoc_md0"></a>
+Install Dependencies</h2>
 <pre class="fragment">    sudo apt update
     sudo apt install -y build-essential qt5-qmake qtbase5-dev qtbase5-dev-tools cmake git
     sudo apt install -y mysql-server libmysqlclient-dev
     sudo systemctl start mysql.service
-</pre><h1><a class="anchor" id="autotoc_md2"></a>
-Configure MySQL (root password)</h1>
+</pre><h2><a class="anchor" id="autotoc_md1"></a>
+Configure MySQL (root password)</h2>
 <pre class="fragment">    sudo mysql
 
     ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
     exit
-</pre><h1><a class="anchor" id="autotoc_md3"></a>
-Build with cmake</h1>
+</pre><h2><a class="anchor" id="autotoc_md2"></a>
+Build with cmake</h2>
 <pre class="fragment">    git clone https://github.com/anil-arise1600/MySqlGUI.git
     cd MySqlGUI
     mkdir cBuild &amp;&amp; cd cBuild
     cmake ..
     make
-</pre><h1><a class="anchor" id="autotoc_md4"></a>
-Build with qmake</h1>
+</pre><h2><a class="anchor" id="autotoc_md3"></a>
+Build with qmake</h2>
 <pre class="fragment">    git clone https://github.com/anil-arise1600/MySqlGUI.git
     cd MySqlGUI
     mkdir qBuild &amp;&amp; cd qBuild
     qmake ..
     make
-</pre><h1><a class="anchor" id="autotoc_md5"></a>
-References</h1>
+</pre><h2><a class="anchor" id="autotoc_md4"></a>
+MySQL Connection</h2>
+<p><img src="https://github.com/anil-arise1600/MySqlGUI/blob/main/docs/Screenshots/MySQLGUI_001.png?raw=true" alt="alt text" class="inline"/></p>
+<h2><a class="anchor" id="autotoc_md5"></a>
+Select Query on selection treeview item</h2>
+<p><img src="https://github.com/anil-arise1600/MySqlGUI/blob/main/docs/Screenshots/MySQLGUI_002.png?raw=true" alt="alt text" class="inline"/></p>
+<h2><a class="anchor" id="autotoc_md6"></a>
+Insert Values on selected treeview item with right click</h2>
+<p><img src="https://github.com/anil-arise1600/MySqlGUI/blob/main/docs/Screenshots/MySQLGUI_003.png?raw=true" alt="alt text" class="inline"/></p>
+<p><img src="https://github.com/anil-arise1600/MySqlGUI/blob/main/docs/Screenshots/MySQLGUI_004.png?raw=true" alt="alt text" class="inline"/></p>
+<h2><a class="anchor" id="autotoc_md7"></a>
+References</h2>
 <ol type="1">
 <li><a href="https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-20-04">MySQL Install</a></li>
 <li><a href="https://www.mysqltutorial.org/mysql-cheat-sheet.aspx">MySQL Queries</a></li>
@@ -106,7 +117,7 @@ References</h1>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Nov 7 2023 17:34:56 for MySQL GUI by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 8 2023 17:47:05 for MySQL GUI by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>

@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['databa_168',['dataBA',['../mysqllogin_8h.html#a447e096ef5d3c0df9c604bb8a4a29034',1,'mysqllogin.h']]],
-  ['db_169',['db',['../dialogselectdb_8cpp.html#ab8e4486a24e60e3db67b34782e49f416',1,'db():&#160;dialogselectdb.cpp'],['../dialoguploadsql_8cpp.html#ab8e4486a24e60e3db67b34782e49f416',1,'db():&#160;dialoguploadsql.cpp'],['../mysqllogin_8cpp.html#ab8e4486a24e60e3db67b34782e49f416',1,'db():&#160;mysqllogin.cpp'],['../sqlquery_8cpp.html#ab8e4486a24e60e3db67b34782e49f416',1,'db():&#160;sqlquery.cpp']]]
+  ['dba_158',['dba',['../class_data_query_window.html#a043667fdb57636513a3646e1371664be',1,'DataQueryWindow::dba()'],['../class_dialog_select_d_b.html#aaf53c4125cf5b46182cc3bcc6a2589be',1,'DialogSelectDB::dba()'],['../class_dialog_upload_s_q_l.html#a13db1538e4831a0092d3c9f349df6291',1,'DialogUploadSQL::dba()'],['../class_mysql_login.html#aabdb3fd590b8fcb1ad54bbae129f5197',1,'MysqlLogin::dba()']]]
 ];

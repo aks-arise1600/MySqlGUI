@@ -25,28 +25,28 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        mysqllogin.cpp \
-    sqlquery.cpp \
-    dialogselectdb.cpp \
-    dialoguploadsql.cpp \
-    insertvalue.cpp \
-    insertlineform.cpp
+        MysqlLogin.cpp \
+    DataQueryWindow.cpp \
+    DialogSelectDB.cpp \
+    DialogUploadSQL.cpp \
+    InsertValue.cpp \
+    InsertLineForm.cpp
 
 HEADERS += \
-        mysqllogin.h \
-    sqlquery.h \
-    dialogselectdb.h \
-    dialoguploadsql.h \
-    insertvalue.h \
+        MysqlLogin.h \
+    DataQueryWindow.h \
+    DialogSelectDB.h \
+    DialogUploadSQL.h \
+    InsertValue.h \
     common.h \
-    insertlineform.h
+    InsertLineForm.h
 
 FORMS += \
-        mysqllogin.ui \
-    sqlquery.ui \
-    dialogselectdb.ui \
-    dialoguploadsql.ui \
-    insertvalue.ui \
-    insertlineform.ui
+        MysqlLogin.ui \
+    DataQueryWindow.ui \
+    DialogSelectDB.ui \
+    DialogUploadSQL.ui \
+    InsertValue.ui \
+    InsertLineForm.ui
 RESOURCES += \
     icons.qrc

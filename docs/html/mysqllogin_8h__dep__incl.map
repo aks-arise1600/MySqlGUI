@@ -1,7 +1,0 @@
-<map id="mysqllogin.h" name="mysqllogin.h">
-<area shape="rect" id="node1" title="This is header of MysqlLogin class." alt="" coords="97,5,191,32"/>
-<area shape="rect" id="node2" href="$main_8cpp.html" title=" " alt="" coords="5,80,80,107"/>
-<area shape="rect" id="node3" href="$sqlquery_8h.html" title="This is header of SqlQuery class." alt="" coords="104,80,184,107"/>
-<area shape="rect" id="node5" href="$mysqllogin_8cpp.html" title=" " alt="" coords="208,80,317,107"/>
-<area shape="rect" id="node4" href="$sqlquery_8cpp.html" title=" " alt="" coords="97,155,191,181"/>
-</map>

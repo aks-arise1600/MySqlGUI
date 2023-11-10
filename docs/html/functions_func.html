@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="mysql-gui_1.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">MySQL GUI
-   &#160;<span id="projectnumber">1.1a</span>
+   &#160;<span id="projectnumber">1.1b</span>
    </div>
    <div id="projectbrief">A UI base MySQL workbench</div>
   </td>
@@ -80,8 +80,8 @@ $(function() {
 <li>DataQueryWindow()
 : <a class="el" href="class_data_query_window.html#adb05146affc3a289fcbdfd38fc956f21">DataQueryWindow</a>
 </li>
-<li>DialogSelectDB()
-: <a class="el" href="class_dialog_select_d_b.html#abd153bbc8033e6a6b9d226657dc65bb5">DialogSelectDB</a>
+<li>DialogSwitchDB()
+: <a class="el" href="class_dialog_switch_d_b.html#a9cd4ce3e7123c74a5f98da964960e29c">DialogSwitchDB</a>
 </li>
 <li>DialogUploadSQL()
 : <a class="el" href="class_dialog_upload_s_q_l.html#a7dad0a47ae0b0975595e303c57615c1a">DialogUploadSQL</a>
@@ -133,6 +133,9 @@ $(function() {
 <li>on_pushButton_browse_clicked()
 : <a class="el" href="class_dialog_upload_s_q_l.html#a64982131b7bd9a7435244d2ea7ed72fe">DialogUploadSQL</a>
 </li>
+<li>on_pushButton_Cancel_clicked()
+: <a class="el" href="class_dialog_switch_d_b.html#a470f9617b7a0dcdb9ee5187a7ca7d8d2">DialogSwitchDB</a>
+</li>
 <li>on_pushButton_changeDB_clicked()
 : <a class="el" href="class_data_query_window.html#aa18babd9796f33d3320537e31dad0a51">DataQueryWindow</a>
 </li>
@@ -143,7 +146,7 @@ $(function() {
 : <a class="el" href="class_data_query_window.html#a78e5d8b40aaa3005da6ee4b5067b977d">DataQueryWindow</a>
 </li>
 <li>on_pushButton_ok_clicked()
-: <a class="el" href="class_dialog_select_d_b.html#a383d195acb4e11b084cf36febddd82bc">DialogSelectDB</a>
+: <a class="el" href="class_dialog_switch_d_b.html#a9f5d277d383fcaa3f088e51ffef8e3c5">DialogSwitchDB</a>
 </li>
 <li>on_pushButton_open_clicked()
 : <a class="el" href="class_mysql_login.html#a240c05d28d582ae9730ed23ded289719">MysqlLogin</a>
@@ -173,6 +176,9 @@ $(function() {
 
 
 <h3><a id="index_s"></a>- s -</h3><ul>
+<li>si_ClosedSwitchDB()
+: <a class="el" href="class_dialog_switch_d_b.html#a05ec1d40467dc7396d53599e2a6c6bec">DialogSwitchDB</a>
+</li>
 <li>si_RefreshTable()
 : <a class="el" href="class_insert_value.html#a1e094d33f8f1c1dbb35b18c5ad21de88">InsertValue</a>
 </li>
@@ -184,6 +190,9 @@ $(function() {
 </li>
 <li>sl_Browse_table()
 : <a class="el" href="class_data_query_window.html#af53bfa6b4d82686fd004d9519b38bdd5">DataQueryWindow</a>
+</li>
+<li>sl_ClosedSwitchDB()
+: <a class="el" href="class_data_query_window.html#a907d87cf4b24242c96ef58d979388077">DataQueryWindow</a>
 </li>
 <li>sl_Drop_table()
 : <a class="el" href="class_data_query_window.html#aa576db12e381dbc37dbb057a5356d1bb">DataQueryWindow</a>
@@ -203,11 +212,8 @@ $(function() {
 <li>sl_Insert_table_values()
 : <a class="el" href="class_data_query_window.html#a840373b7f8473042c1d8782b94a2da6a">DataQueryWindow</a>
 </li>
-<li>sl_QueryLineEdit()
-: <a class="el" href="class_data_query_window.html#a5d4ec31c8786427c4d5dfa31d2114ae7">DataQueryWindow</a>
-</li>
 <li>sl_SelectAll()
-: <a class="el" href="class_data_query_window.html#a5ca1a023040dcd5e08e4f96785040784">DataQueryWindow</a>
+: <a class="el" href="class_data_query_window.html#a70d484c6b8a627ef2ee13b7faf1c13c6">DataQueryWindow</a>
 </li>
 <li>sl_Show()
 : <a class="el" href="class_mysql_login.html#a92ee7764f9cebdad8f312e0815b84517">MysqlLogin</a>
@@ -232,8 +238,8 @@ $(function() {
 <li>~DataQueryWindow()
 : <a class="el" href="class_data_query_window.html#a8e8c6c48cb5d93949836d98bdb2ad952">DataQueryWindow</a>
 </li>
-<li>~DialogSelectDB()
-: <a class="el" href="class_dialog_select_d_b.html#a92498c04d23791d1f3863ed3024a813b">DialogSelectDB</a>
+<li>~DialogSwitchDB()
+: <a class="el" href="class_dialog_switch_d_b.html#aa1aea4470568b2ab800b215feefa08a1">DialogSwitchDB</a>
 </li>
 <li>~DialogUploadSQL()
 : <a class="el" href="class_dialog_upload_s_q_l.html#abd02bc0d879de14ef684f4426e77502f">DialogUploadSQL</a>
@@ -251,7 +257,7 @@ $(function() {
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Nov 8 2023 17:47:05 for MySQL GUI by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Nov 9 2023 15:51:42 for MySQL GUI by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>

@@ -19,7 +19,6 @@ DataQueryWindow::DataQueryWindow(QWidget *parent, QSqlDatabase *db_) :
 {
     ui->setupUi(this);
     dba = db_;
-    list.clear();
     ui->treeView->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(ui->treeView, SIGNAL(customContextMenuRequested(const QPoint &)), this, SLOT(onCustomContextMenu(const QPoint &)));
     connect(ui->treeView,SIGNAL(clicked(QModelIndex)),this,SLOT(On_Click_treeview(QModelIndex)));
@@ -61,11 +60,11 @@ void DataQueryWindow::sl_TreeViewList()
     ui->lineEdit_Query->clear();
     int i=0;
     PRINT(__FUNCTION__)<<"in tree Database "<<dba->databaseName();
-    ui->label_selecteDB->setText(dba->databaseName());
+    ui->label_selectedDB->setText(dba->databaseName());
     QSqlQuery query0("use "+dba->databaseName());
     query0.next();
 
-    Model =new QStandardItemModel;
+    Model = new QStandardItemModel;
     ItemMain= new QStandardItem(dba->databaseName()+"@"+dba->hostName());
     Model->setHorizontalHeaderItem(0,ItemMain);
     ItemMain= new QStandardItem(dba->databaseName());
@@ -124,7 +123,10 @@ void DataQueryWindow::on_pushButton_Go_clicked()
             i=0;
             if(strlist.at(0)=="select" && strlist.at(1)=="*")
             {
-                sl_SelectAll(strlist.at(3));
+                if(strlist.size()>4)
+                    sl_SelectAll(strlist.at(3),strlist);
+                else
+                    sl_SelectAll(strlist.at(3),strlist);
             }
             else if(strlist.at(0)=="select" && strlist.at(1)!="*")
             {
@@ -135,7 +137,8 @@ void DataQueryWindow::on_pushButton_Go_clicked()
                     if(strr.toLower()=="from")
                         size=k-1;
                 }
-                Model =new QStandardItemModel;
+
+                Model = new QStandardItemModel;
                 while(size>0)
                 {
                     QString str1=strlist.at(col);
@@ -204,10 +207,11 @@ void DataQueryWindow::on_pushButton_Go_clicked()
                     }
                     else
                     {
+                        QStringList tmpList;
                         if(str.toLower()=="update")
                         {
                             ui->label_error->setText("<font color=green>Successfully updated !!</font>");
-                            sl_SelectAll(strlist.at(1));
+                            sl_SelectAll(strlist.at(1),tmpList);
                         }
                         else if(str.toLower()=="drop")
                         {
@@ -225,7 +229,7 @@ void DataQueryWindow::on_pushButton_Go_clicked()
                         else if(str.toLower()=="delete")
                         {
                             ui->label_error->setText("<font color=green>deleted !!</font>");
-                            sl_SelectAll(strlist.at(2));
+                            sl_SelectAll(strlist.at(2),tmpList);
                         }
                         else if(str.toLower()=="create" && QString(strlist.at(1)).toLower()=="table")
                         {
@@ -234,7 +238,7 @@ void DataQueryWindow::on_pushButton_Go_clicked()
                         }
                         else if(str.toLower()=="insert")
                         {
-                            sl_SelectAll(strlist.at(2));
+                            sl_SelectAll(strlist.at(2),tmpList);
                         }
                     }
                 }
@@ -259,8 +263,9 @@ void DataQueryWindow::On_Click_treeview(QModelIndex M_index)
     //PRINT(__FUNCTION__)<< "Model Index "/*<<M_index */<<text;
     if(text!=dba->databaseName())
     {
+        QStringList tmpList;
         ui->lineEdit_Query->setText("select * from "+text);
-        sl_SelectAll(text);
+        sl_SelectAll(text,tmpList);
     }
     else
     {
@@ -280,23 +285,31 @@ void DataQueryWindow::sl_ExitClose()
     this->close();
 }
 
-void DataQueryWindow::sl_SelectAll(QString str)
+void DataQueryWindow::sl_SelectAll(QString tableName, QStringList strListQuery)
 {
-    ui->label_Table->setText(str);
-    list.clear();
+    ui->label_Table->setText(tableName);
     int i=0;
+
     Model =new QStandardItemModel;
 
-    QSqlQuery query4("show columns from "+str);
+    QSqlQuery query4("show columns from "+tableName);
     while(query4.next())
     {
         Item = new QStandardItem (query4.value(0).toString());
         Model->setHorizontalHeaderItem(i,Item);
         i++;
     }
-    list.append("\n\n");
     int totalColumn=i;
-    QSqlQuery query3("select * from "+str);
+    QString strQuery;
+    if(strListQuery.size()>4)
+    {
+        foreach (QString str, strListQuery)
+            strQuery += str+" ";
+    }
+    else
+        strQuery = "select * from "+tableName;
+
+    QSqlQuery query3(strQuery.trimmed());
     i=0;
     while (query3.next())
     {
@@ -315,7 +328,9 @@ void DataQueryWindow::sl_SelectAll(QString str)
         i++;
     }
     ui->tableView_QueryData->setModel(Model);
-    //PRINT(__FUNCTION__)<<ui->treeView->size();
+
+    if(i>1 && strListQuery.size()>4)
+        ui->label_error->setText("<font color=green>Successfully fetch data  !!</font>");
 }
 
 /**
@@ -323,24 +338,13 @@ void DataQueryWindow::sl_SelectAll(QString str)
  */
 void DataQueryWindow::on_pushButton_changeDB_clicked()
 {
-    if(sdb)
-        delete sdb;
+    if(obj_sdb)
+        delete obj_sdb;
 
-    sdb=new DialogSelectDB(this,dba);
-    sdb->exec();
-    sl_TreeViewList();
-    ui->tableView_QueryData->setModel(nullptr);
-    ui->label_selecteDB->setText(dba->databaseName());
-}
+    obj_sdb = new DialogSwitchDB(this,dba);
+    connect(obj_sdb,SIGNAL(si_ClosedSwitchDB(bool)),SLOT(sl_ClosedSwitchDB(bool)));
+    obj_sdb->exec();
 
-/**
- * @brief DataQueryWindow::sl_QueryLineEdit
- */
-void DataQueryWindow::sl_QueryLineEdit()
-{
-    //PRINT(__FUNCTION__)<<"GO ";
-    ui->pushButton_Go->setDefault(true);
-    ui->pushButton_Exit->setDefault(false);
 }
 
 void DataQueryWindow::on_pushButton_Upload_clicked()
@@ -363,8 +367,8 @@ void DataQueryWindow::onCustomContextMenu(const QPoint &point)
     Table_Name= ui->treeView->model()->data(Mdl_Index).toString();
     PRINT(__FUNCTION__)<<Mdl_Index<<Table_Name;
 
-    QMenu *menu=new QMenu(this);
-    if(dba->databaseName()==Table_Name)
+    QMenu *menu = new QMenu(this);
+    if(dba->databaseName() == Table_Name)
     {
         QAction *import= new QAction(QIcon(":/images/add.png"),tr("Import"),this);
         connect(import, &QAction::triggered, this, &DataQueryWindow::sl_Import_table);
@@ -407,7 +411,7 @@ void DataQueryWindow::sl_Insert_table_values()
         delete ivalue;
 
     ivalue = new InsertValue(0,Table_Name);
-    connect(ivalue,SIGNAL(si_RefreshTable(QString)),SLOT(sl_SelectAll(QString)));
+    connect(ivalue,SIGNAL(si_RefreshTable(QString,QStringList)),SLOT(sl_SelectAll(QString,QStringList)));
 
     ivalue->show();
     this->setEnabled(true);
@@ -421,7 +425,8 @@ void DataQueryWindow::sl_Struct_table()
 {
     PRINT(__FUNCTION__)<<"Table_Name "<<Table_Name;
     int i=0;
-    Model =new QStandardItemModel;
+
+    Model = new QStandardItemModel;
     Model->setHorizontalHeaderItem(0,new QStandardItem("Field"));
     Model->setHorizontalHeaderItem(1,new QStandardItem("Type"));
     Model->setHorizontalHeaderItem(2,new QStandardItem("Null"));
@@ -489,7 +494,6 @@ void DataQueryWindow::sl_Import_table()
 /**
  * @brief DataQueryWindow::sl_Export_table
  */
-
 void DataQueryWindow::sl_Export_table()
 {
     isExport=true;
@@ -503,10 +507,20 @@ void DataQueryWindow::sl_Export_table()
 void DataQueryWindow::sl_About()
 {
     QMessageBox::information(this,"About us","<b>MySQL GUI</b><br>"
-                                             "Version 1.1a<br>"
+                                             "Version 1.1b<br>"
                                              "<br>Copyright 2022-2023 The anil-arise1600. All rights reserved.<br>"
                                              "<br>The program is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE WARRANTY OF DESIGN, "
                                              "MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE");
+}
+
+void DataQueryWindow::sl_ClosedSwitchDB(bool isSwitched)
+{
+    if(isSwitched)
+    {
+        ui->label_selectedDB->setText(dba->databaseName());
+        sl_TreeViewList();
+        ui->tableView_QueryData->setModel(nullptr);
+    }
 }
 
 /**
@@ -517,20 +531,17 @@ void DataQueryWindow::sl_About()
  */
 bool DataQueryWindow::eventFilter(QObject *obj, QEvent *event)
 {
-    //PRINT(__FUNCTION__)<<"event"<<obj;
-    if(obj==ui->lineEdit_Query)
+    Q_UNUSED(obj)
+    if(ui->lineEdit_Query->hasFocus() && event->type() == QEvent::KeyPress)
     {
-        if (event->type() == QEvent::FocusIn)
+        QKeyEvent *KE = static_cast<QKeyEvent*>(event);
+        if (KE->key() == Qt::Key_Return || KE->key() == Qt::Key_Enter)
         {
-            ui->pushButton_Go->setDefault(true);
-            ui->pushButton_Exit->setDefault(false);
-            PRINT(__FUNCTION__) << "Default set Go";
-        }
-        else
-        {
-            ui->pushButton_Exit->setDefault(true);
-            ui->pushButton_Go->setDefault(false);
+            PRINT(__FUNCTION__)<<"Pressed" <<QKeySequence(KE->key()).toString(QKeySequence::NativeText);
+            on_pushButton_Go_clicked();
+            return  true;
         }
     }
+    return false ;
 
 }

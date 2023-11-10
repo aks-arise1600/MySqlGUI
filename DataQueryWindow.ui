@@ -276,7 +276,7 @@ QScrollBar::sub-line:horizontal {
        </widget>
       </item>
       <item>
-       <widget class="QLabel" name="label_selecteDB">
+       <widget class="QLabel" name="label_selectedDB">
         <property name="styleSheet">
          <string notr="true">font: 75 12pt &quot;Ubuntu Condensed&quot;;</string>
         </property>
@@ -341,9 +341,17 @@ QScrollBar::sub-line:horizontal {
     </item>
     <item>
      <widget class="QLabel" name="label_error">
+      <property name="font">
+       <font>
+        <family>Arial</family>
+        <pointsize>9</pointsize>
+        <weight>3</weight>
+        <italic>true</italic>
+        <bold>false</bold>
+       </font>
+      </property>
       <property name="styleSheet">
-       <string notr="true">font: 25 9pt &quot;Ubuntu&quot;;
-color: rgb(239, 41, 41);</string>
+       <string notr="true"/>
       </property>
       <property name="text">
        <string/>

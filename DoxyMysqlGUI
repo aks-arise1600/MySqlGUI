@@ -5,7 +5,7 @@
 #---------------------------------------------------------------------------
 DOXYFILE_ENCODING      = UTF-8
 PROJECT_NAME           = "MySQL GUI"
-PROJECT_NUMBER         = 1.1a
+PROJECT_NUMBER         = 1.1b
 PROJECT_BRIEF          = "A UI base MySQL workbench"
 PROJECT_LOGO           = ./images/mysql-gui_1.png
 OUTPUT_DIRECTORY       = ./docs

@@ -35,7 +35,6 @@ MysqlLogin::MysqlLogin(QWidget *parent) :
     ///////////////////////////////////////////////////////////////////////////
 
     dba = QSqlDatabase::addDatabase("QMYSQL");
-    dba.setConnectOptions("MYSQL_OPT_RECONNECT=1");
 
 }
 /**

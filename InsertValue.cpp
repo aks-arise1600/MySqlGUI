@@ -109,5 +109,6 @@ void InsertValue::sl_Insert_into()
     else
         this->close();
 
-    emit si_RefreshTable(strTableName);
+    QStringList tmpList;
+    emit si_RefreshTable(strTableName,tmpList);
 }

@@ -29,7 +29,7 @@ public:
 public slots:
     void sl_Insert_into();
 signals:
-    void si_RefreshTable(QString);
+    void si_RefreshTable(QString,QStringList);
 private:
     Ui::InsertValue *ui;
     QString strTableName; /**< Selected Table Name **/

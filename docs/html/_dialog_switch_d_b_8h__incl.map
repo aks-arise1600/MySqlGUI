@@ -1,5 +1,5 @@
-<map id="DialogSelectDB.h" name="DialogSelectDB.h">
-<area shape="rect" id="node1" title="This is header of DialogSelectDB class." alt="" coords="79,5,206,32"/>
+<map id="DialogSwitchDB.h" name="DialogSwitchDB.h">
+<area shape="rect" id="node1" title="This is header of DialogSwitchDB class." alt="" coords="78,5,207,32"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,80,75,107"/>
 <area shape="rect" id="node3" title=" " alt="" coords="99,80,186,107"/>
 <area shape="rect" id="node4" href="$common_8h.html" title="This is common header for all classes." alt="" coords="211,80,293,107"/>

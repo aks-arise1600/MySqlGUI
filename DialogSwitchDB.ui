@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>DialogSelectDB</class>
- <widget class="QDialog" name="DialogSelectDB">
+ <class>DialogSwitchDB</class>
+ <widget class="QDialog" name="DialogSwitchDB">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -98,22 +98,5 @@
  <resources>
   <include location="icons.qrc"/>
  </resources>
- <connections>
-  <connection>
-   <sender>pushButton_Cancel</sender>
-   <signal>clicked()</signal>
-   <receiver>DialogSelectDB</receiver>
-   <slot>close()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>303</x>
-     <y>83</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>199</x>
-     <y>50</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

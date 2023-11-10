@@ -27,7 +27,7 @@ SOURCES += \
         main.cpp \
         MysqlLogin.cpp \
     DataQueryWindow.cpp \
-    DialogSelectDB.cpp \
+    DialogSwitchDB.cpp \
     DialogUploadSQL.cpp \
     InsertValue.cpp \
     InsertLineForm.cpp
@@ -35,7 +35,7 @@ SOURCES += \
 HEADERS += \
         MysqlLogin.h \
     DataQueryWindow.h \
-    DialogSelectDB.h \
+    DialogSwitchDB.h \
     DialogUploadSQL.h \
     InsertValue.h \
     common.h \
@@ -44,7 +44,7 @@ HEADERS += \
 FORMS += \
         MysqlLogin.ui \
     DataQueryWindow.ui \
-    DialogSelectDB.ui \
+    DialogSwitchDB.ui \
     DialogUploadSQL.ui \
     InsertValue.ui \
     InsertLineForm.ui

@@ -1,5 +1,5 @@
 <p>
-<img src="https://github.com/anil-arise1600/MySqlGUI/blob/main/images/mysql-gui.png?raw=true" alt="drawing" width="110"/>
+<img src="https://github.com/aks-arise1600/MySqlGUI/blob/main/images/mysql-gui.png?raw=true" alt="drawing" width="110"/>
 <b style="font-size: 2.5rem; color: #2ecc71">MySQL GUI </b>   <b>1.1b</b>
 </p>
 
@@ -24,7 +24,7 @@ MySQL GUI is a UI based MySQL workbench. It is design as all SQL commands or que
 
 ## Build with cmake
 
-		git clone https://github.com/anil-arise1600/MySqlGUI.git
+		git clone https://github.com/aks-arise1600/MySqlGUI.git
 		cd MySqlGUI
 		mkdir cBuild && cd cBuild
 		cmake ..
@@ -32,7 +32,7 @@ MySQL GUI is a UI based MySQL workbench. It is design as all SQL commands or que
 	
 ## Build with qmake
 
-		git clone https://github.com/anil-arise1600/MySqlGUI.git
+		git clone https://github.com/aks-arise1600/MySqlGUI.git
 		cd MySqlGUI
 		mkdir qBuild && cd qBuild
 		qmake ..
@@ -42,19 +42,19 @@ MySQL GUI is a UI based MySQL workbench. It is design as all SQL commands or que
 	
 ## MySQL Connection
 
-![alt text](https://github.com/anil-arise1600/MySqlGUI/blob/main/docs/Screenshots/MySQLGUI_001.png?raw=true)
+![alt text](https://github.com/aks-arise1600/MySqlGUI/blob/main/docs/Screenshots/MySQLGUI_001.png?raw=true)
 
 
 ## Select Query on selection treeview item
 
-![alt text](https://github.com/anil-arise1600/MySqlGUI/blob/main/docs/Screenshots/MySQLGUI_002.png?raw=true)
+![alt text](https://github.com/aks-arise1600/MySqlGUI/blob/main/docs/Screenshots/MySQLGUI_002.png?raw=true)
 
 
 ## Insert Values on selected treeview item with right click
 
-![alt text](https://github.com/anil-arise1600/MySqlGUI/blob/main/docs/Screenshots/MySQLGUI_003.png?raw=true)
+![alt text](https://github.com/aks-arise1600/MySqlGUI/blob/main/docs/Screenshots/MySQLGUI_003.png?raw=true)
 
-![alt text](https://github.com/anil-arise1600/MySqlGUI/blob/main/docs/Screenshots/MySQLGUI_004.png?raw=true)
+![alt text](https://github.com/aks-arise1600/MySqlGUI/blob/main/docs/Screenshots/MySQLGUI_004.png?raw=true)
 
 	
 ## References
